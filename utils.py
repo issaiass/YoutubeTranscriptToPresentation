@@ -149,19 +149,19 @@ def make_ppt(title_dict, introduction, slides_dict, conclusion):
 
     slides_text = slides_dict['strings']
     slides_text_image_ids = slides_dict['image_ids']
-    n_slides = len(slides_dict)
+    n_slides = len(slides_text_image_ids)
     
     file_ids = [title_text_img_id] + slides_text_image_ids
 
     user_message =  f"Use the included code template to create a PPTX slide that follows the template format, \
     but uses the image, slide title, and document subtitle included with this code template: \
     {first_slide_template}. IMPORTANT: Load the included image with id {title_text_img_id} in this message  as the image_path in \
-    this first slide, and use the title {title_text} as the title_text variable,  use the subtitle_text {subtitle_text} a the subtitle_text variable. \
-    NEXT, create a SECOND slide using the following code template: {text_template} to create a PPTX slide that follows the template format, but uses \
-    the slide title {title_text} as slide_title variable, 'Introduction' as the slide_theme variable and {introduction} as the slide_text variable. \
-    NEXT, create {n_slides+1} slides and add each one of subsequent slides to the previous slide, starting from the third slide use \
-    the title {title_text} as title_text variable for all slides, but also " + ' '.join([f"for the slide number {k+1+2} use bullet points {slides_text[k]} as \
-    bullet_point variable and load file with the image id {slides_text_image_ids[k]} in slide {k+1+2} as image_path variable, " for k in range(n_slides)]) + f"; \
+    this first slide, and use the title {title_text} as the title_text variable,  use the subtitle_text {subtitle_text} a the subtitle_text variable; \
+    NEXT, create a SECOND slide using the following code template: {text_template} to create a PPTX slide, but also uses \
+    the slide title {title_text} as slide_title variable, 'Introduction' as the slide_theme variable and {introduction} as the slide_text variable; \
+    NEXT, create from the end of the SECOND slide {n_slides} additional slides, " + ' '.join([f"starting from the slide number {k+1+2} use \
+    the title {title_text} as title_text variable, but also  for the slide number {k+1+2} use bullet points {slides_text[k]} as \
+    bullet_point variable and load file with the image id {slides_text_image_ids[k]} in slide {k+1+2} as image_path variable, then " for k in range(n_slides)]) + f"; \
     NEXT. starting from the slide {n_slides+1+2} using the following code template: {text_template} to create a PPTX slide that follows the template format, but \
     uses the slide title {title_text} as slide_title variable, 'Conclusion' as the slide_theme variable and {conclusion} as the slide_text variable. \
     FINALLY add the last slide using this code template: {thanks_template}"
